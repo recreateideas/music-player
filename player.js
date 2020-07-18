@@ -49,13 +49,19 @@ const main = () => {
         Songs: ${Object.keys(songs).join(', ')}
         Press space to play '${songName}'...`);
         stdin.on('keypress', (chunk, key) => {
-            if (key.name === 'space') {
-                log(`Playing '${songName}' at ${tempo}bpm ... Press 'q' to stop.`);
-                playSong()
-            }
-            if (key.name === 'q') {
-                log(`Playing: tempo: ${tempo}bpm`);
-                stopSong()
+            switch(key.name) {
+                case 'space': 
+                    log(`Playing '${songName}' at ${tempo}bpm ... Press 'q' to stop.`);
+                    playSong();
+                    break;
+                case 'q':
+                    stopSong();
+                    break;
+                case 'right':
+                    stopSong();
+                    changeSong();
+                    break;
+                default: break;
             }
             if (key && key.ctrl && key.name == 'c') process.exit();
         });
